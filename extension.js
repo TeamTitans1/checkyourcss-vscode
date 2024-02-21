@@ -1,36 +1,49 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-const vscode = require('vscode');
-
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
+const vscode = require("vscode");
+const { getCssData, getTailwindToCssData } = require("./getData");
+const getStyledComponentsData = require("./getUserStyledComponents");
+const setBrowserAndversion = require("./setBrowserAndVersion");
 
 /**
  * @param {vscode.ExtensionContext} context
  */
-function activate(context) {
+async function activate(context) {
+  const cssData = await getCssData();
+  let userCssData;
 
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "check-your-css" is now active!');
+  const checkCompatibilityAndGetInfo = vscode.commands.registerCommand(
+    "cyc.checkyourcss",
+    async () => {
+      const editor = vscode.window.activeTextEditor;
+      if (!editor) {
+        vscode.window.showInformationMessage(
+          "편집기가 활성화되어 있지 않습니다.",
+        );
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('check-your-css.helloWorld', function () {
-		// The code you place here will be executed every time your command is executed
+        return;
+      }
 
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from Check Your CSS!');
-	});
+      const document = editor.document;
+      const documentText = document.getText();
+      const agentData = cssData.data.agents;
 
-	context.subscriptions.push(disposable);
+      if (
+        documentText.includes(`from "styled-components`) ||
+        documentText.includes("from 'styled-components'")
+      ) {
+        userCssData = getStyledComponentsData();
+      } else {
+      }
+
+      const userSelection = await setBrowserAndversion(agentData);
+    },
+  );
+
+  context.subscriptions.push(checkCompatibilityAndGetInfo);
 }
 
-// This method is called when your extension is deactivated
 function deactivate() {}
 
 module.exports = {
-	activate,
-	deactivate
-}
+  activate,
+  deactivate,
+};
