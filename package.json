@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "check-your-css.helloWorld",
-        "title": "Hello World"
+        "command": "cyc.checkyourcss",
+        "title": "Check Your CSS"
       }
     ]
   },
@@ -25,6 +25,8 @@
     "test": "vscode-test"
   },
   "devDependencies": {
+    "@babel/parser": "^7.23.9",
+    "@babel/traverse": "^7.23.9",
     "@types/mocha": "^10.0.6",
     "@types/node": "18.x",
     "@types/vscode": "^1.86.0",
@@ -35,7 +37,10 @@
     "eslint-config-prettier": "^9.1.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
-    "prettier": "^3.2.5",
+    "prettier": "^3.2.5"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
     "typescript": "^5.3.3"
   }
 }
