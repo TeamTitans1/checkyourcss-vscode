@@ -1,7 +1,7 @@
 const bcd = require("@mdn/browser-compat-data");
 
 async function checkCompatibility(userCss, cssData, userSelection) {
-  let notSupported = [];
+  const notSupported = [];
 
   for (const selection of userSelection) {
     const browser = selection.browser;
