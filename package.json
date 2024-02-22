@@ -40,6 +40,7 @@
     "prettier": "^3.2.5"
   },
   "dependencies": {
+    "@mdn/browser-compat-data": "^5.5.11",
     "axios": "^1.6.7",
     "typescript": "^5.3.3"
   }
