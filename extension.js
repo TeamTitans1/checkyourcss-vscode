@@ -2,6 +2,7 @@ const vscode = require("vscode");
 const { getCssData, getTailwindToCssData } = require("./getData");
 const getStyledComponentsData = require("./getUserStyledComponents");
 const setBrowserAndVersion = require("./setBrowserAndVersion");
+const checkCompatibility = require("./compatibilityCheck");
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -37,6 +38,12 @@ async function activate(context) {
       }
 
       const userSelection = await setBrowserAndVersion(agentData);
+
+      const notSupportedCss = await checkCompatibility(
+        userCssData,
+        cssData,
+        userSelection,
+      );
     },
   );
 
