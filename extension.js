@@ -1,13 +1,14 @@
 const vscode = require("vscode");
 const { getCssData, getTailwindToCssData } = require("./getData");
 const getStyledComponentsData = require("./getUserStyledComponents");
-const setBrowserAndversion = require("./setBrowserAndVersion");
+const setBrowserAndVersion = require("./setBrowserAndVersion");
 
 /**
  * @param {vscode.ExtensionContext} context
  */
 async function activate(context) {
   const cssData = await getCssData();
+  const tailwindToCss = await getTailwindToCssData();
   let userCssData;
 
   const checkCompatibilityAndGetInfo = vscode.commands.registerCommand(
@@ -32,9 +33,10 @@ async function activate(context) {
       ) {
         userCssData = getStyledComponentsData();
       } else {
+        userCssData = getUserTailwindData(tailwindToCss);
       }
 
-      const userSelection = await setBrowserAndversion(agentData);
+      const userSelection = await setBrowserAndVersion(agentData);
     },
   );
 
