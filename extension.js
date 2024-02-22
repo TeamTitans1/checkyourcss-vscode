@@ -3,6 +3,7 @@ const { getCssData, getTailwindToCssData } = require("./getData");
 const getStyledComponentsData = require("./getUserStyledComponents");
 const setBrowserAndVersion = require("./setBrowserAndVersion");
 const checkCompatibility = require("./compatibilityCheck");
+const { markLine } = require("./lineMarkAndHover");
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -44,6 +45,8 @@ async function activate(context) {
         cssData,
         userSelection,
       );
+
+      markLine(notSupportedCss);
     },
   );
 
