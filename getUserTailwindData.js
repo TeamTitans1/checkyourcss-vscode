@@ -53,6 +53,7 @@ function getUserTailwindData(tailwindToCss) {
       });
     });
   });
+
   return cssProperties;
 }
 
