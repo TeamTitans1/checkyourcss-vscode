@@ -55,6 +55,7 @@ async function activate(context) {
 
       function provideHover(document, position) {
         const currentHoverPosition = `${position.line}:${position.character}`;
+
         if (lastHoverPosition === currentHoverPosition) {
           return;
         }
