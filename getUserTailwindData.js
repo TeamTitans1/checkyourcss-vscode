@@ -1,4 +1,6 @@
 const vscode = require("vscode");
+const traverse = require("@babel/traverse");
+const { parse } = require("@babel/parser");
 
 function getUserTailwindData(tailwindToCss) {
   const editor = vscode.window.activeTextEditor;
@@ -13,14 +15,29 @@ function getUserTailwindData(tailwindToCss) {
   const tailwindProperties = [];
   const cssProperties = [];
   const text = document.getText();
-  const regex = /className=["|']([^"|']+)["|']/g;
-  let match;
+  const ast = parse(text, {
+    sourceType: "unambiguous",
+    plugins: ["jsx", "typescript"],
+  });
 
-  while ((match = regex.exec(text)) !== null) {
-    match[1].split(/\s+/).forEach(cssProperty => {
-      tailwindProperties.push(cssProperty);
-    });
-  }
+  traverse.default(ast, {
+    JSXAttribute({ node }) {
+      if (node.name.name === "className") {
+        if (node.value.type === "StringLiteral") {
+          node.value.value
+            .split(" ")
+            .forEach(className => tailwindProperties.push(className));
+        } else if (
+          node.value.type === "JSXExpressionContainer" &&
+          node.value.expression.type === "StringLiteral"
+        ) {
+          node.value.expression.value
+            .split(" ")
+            .forEach(className => tailwindProperties.push(className));
+        }
+      }
+    },
+  });
 
   tailwindProperties.forEach(word => {
     tailwindToCss.forEach(element => {
