@@ -1,9 +1,10 @@
 const vscode = require("vscode");
-const { getCssData, getTailwindToCssData } = require("./getData");
-const getStyledComponentsData = require("./getUserStyledComponents");
-const setBrowserAndVersion = require("./setBrowserAndVersion");
 const checkCompatibility = require("./compatibilityCheck");
+const getUserTailwindData = require("./getUserTailwindData");
+const setBrowserAndVersion = require("./setBrowserAndVersion");
+const getStyledComponentsData = require("./getUserStyledComponents");
 const { markLine } = require("./lineMarkAndHover");
+const { getCssData, getTailwindToCssData } = require("./getData");
 
 /**
  * @param {vscode.ExtensionContext} context
