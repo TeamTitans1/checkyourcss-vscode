@@ -16,6 +16,10 @@
       {
         "command": "cyc.checkyourcss",
         "title": "Check Your CSS"
+      },
+      {
+        "command": "cyc.fixyourcss",
+        "title": "Fix Your CSS"
       }
     ]
   },
@@ -32,11 +36,13 @@
     "@types/vscode": "^1.86.0",
     "@vscode/test-cli": "^0.0.4",
     "@vscode/test-electron": "^2.3.9",
+    "autoprefixer": "^10.4.17",
     "eslint": "^8.56.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.1.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
+    "postcss": "^8.4.35",
     "prettier": "^3.2.5"
   },
   "dependencies": {

@@ -6,6 +6,7 @@ const getStyledComponentsData = require("./getUserStyledComponents");
 const { markLine } = require("./lineMarkAndHover");
 const { getCssData, getTailwindToCssData } = require("./getData");
 const extractWordAtPositionIncludingHyphen = require("./getWordIncludingHyphen");
+const changeStyledComponentsCss = require("./fixStyledComponents");
 const bcd = require("@mdn/browser-compat-data");
 
 /**
@@ -175,7 +176,35 @@ async function activate(context) {
     },
   );
 
-  context.subscriptions.push(checkCompatibilityAndGetInfo);
+  const fixStyledComponents = vscode.commands.registerCommand(
+    "cyc.fixyourcss",
+    async () => {
+      const editor = vscode.window.activeTextEditor;
+
+      if (!editor) {
+        vscode.window.showInformationMessage(
+          "편집기가 활성화되어 있지 않습니다.",
+        );
+
+        return;
+      }
+
+      const document = editor.document;
+      const documentText = document.getText();
+
+      if (
+        documentText.includes(`from "styled-components`) ||
+        documentText.includes("from 'styled-components'")
+      ) {
+        const agentData = cssData.data.agents;
+        const userSelections = await setBrowserAndVersion(agentData);
+
+        changeStyledComponentsCss(documentText, userSelections);
+      }
+    },
+  );
+
+  context.subscriptions.push(checkCompatibilityAndGetInfo, fixStyledComponents);
 }
 
 function deactivate() {}
