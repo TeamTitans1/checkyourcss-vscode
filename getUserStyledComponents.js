@@ -28,11 +28,11 @@ function getStyledComponentsData() {
       if (isStyledComponent) {
         path.node.quasi.quasis.forEach(element => {
           const cssText = element.value.raw;
-          const regex = /(\w+-?\w+)\s*:/g;
+          const regex = /(?<!-(webkit|moz|ms|o)-)\b(\w+-?\w+)\s*:/g;
           let match;
 
           while ((match = regex.exec(cssText))) {
-            cssProperties.push({ css: match[1] });
+            cssProperties.push({ css: match[2] });
           }
         });
       }
