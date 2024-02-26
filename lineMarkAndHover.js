@@ -1,5 +1,7 @@
 const vscode = require("vscode");
 
+let diagnosticCollection = null;
+
 async function markLine(notSupportedCss) {
   const editor = vscode.window.activeTextEditor;
   if (!editor) {
@@ -14,9 +16,9 @@ async function markLine(notSupportedCss) {
 
   function isDuplicateDiagnostic(newDiagnostic) {
     return diagnostics.some(
-      (diagnostic) =>
+      diagnostic =>
         diagnostic.range.isEqual(newDiagnostic.range) &&
-        diagnostic.message === newDiagnostic.message
+        diagnostic.message === newDiagnostic.message,
     );
   }
 
@@ -31,7 +33,7 @@ async function markLine(notSupportedCss) {
       const diagnostic = new vscode.Diagnostic(
         range,
         "Check Your CSS",
-        vscode.DiagnosticSeverity.Warning
+        vscode.DiagnosticSeverity.Error,
       );
 
       if (!isDuplicateDiagnostic(diagnostic)) {
@@ -40,8 +42,12 @@ async function markLine(notSupportedCss) {
     }
   }
 
-  const diagnosticCollection =
-    vscode.languages.createDiagnosticCollection("cssCompatibility");
+  if (diagnosticCollection) {
+    diagnosticCollection.clear();
+  } else {
+    diagnosticCollection =
+      vscode.languages.createDiagnosticCollection("cssCompatibility");
+  }
 
   diagnosticCollection.set(document.uri, diagnostics);
 }

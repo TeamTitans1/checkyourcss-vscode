@@ -49,7 +49,7 @@ async function activate(context) {
         userSelection,
       );
 
-      markLine(notSupportedCss);
+      markLine(notSupportedCss, userSelection);
 
       let lastHoverPosition = null;
 

@@ -12,7 +12,7 @@ async function checkCompatibility(userCss, cssData, userSelection) {
 
       if (property.css in cssData.data.data) {
         const compatibility =
-          cssData.data.data[property.css].stats[browser][version];
+          cssData.data.data[property.css].stats[browser][version][0];
 
         isCompatible = compatibility === "y";
       } else if (property.css in bcd.css.properties) {
