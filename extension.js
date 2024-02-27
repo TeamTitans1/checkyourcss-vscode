@@ -1,4 +1,6 @@
 const vscode = require("vscode");
+const autoprefixer = require("autoprefixer");
+const postcss = require("postcss");
 const checkCompatibility = require("./src/cssCompatibilityChecker");
 const getUserTailwindData = require("./src/tailwindCssExtractor");
 const setBrowserAndVersion = require("./src/browsersAndversionsSetter");
@@ -58,7 +60,6 @@ async function activate(context) {
       }
 
       const userSelection = await getSettingJsonData();
-
       const notSupportedCss = await checkCompatibility(
         userCssData,
         cssData,
@@ -167,11 +168,27 @@ async function activate(context) {
           compatibilityInfo.appendMarkdown(`### ${cssProperty.css}\n\n`);
           browsersAndSupportedVersion.forEach(browserAndversion => {
             compatibilityInfo.appendMarkdown(
-              `- **${browserAndversion.browser}**: Version **${browserAndversion.version}** supported and higher.\n\n`,
+              `\n\n- **${browserAndversion.browser}**: Version **${browserAndversion.version}** supported and higher.\n\n`,
             );
+
+            const browserQuery = `${browserAndversion.browser} ${browserAndversion.version}`;
+            const autoprefixerPlugin = autoprefixer({
+              overrideBrowserslist: [browserQuery],
+            });
+            const processedCss = postcss(autoprefixerPlugin).process(
+              cssProperty.declaratives,
+              {
+                from: undefined,
+              },
+            );
+            compatibilityInfo.appendMarkdown(
+              `  - [Suggestion] ${processedCss.css}\n\n`,
+            );
+            compatibilityInfo.appendMarkdown(`---`);
           });
+
           compatibilityInfo.appendMarkdown(
-            `[Find information on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/${cssProperty.css})`,
+            `\n\n[Find information on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/${cssProperty.css})`,
           );
 
           return new vscode.Hover(compatibilityInfo);
