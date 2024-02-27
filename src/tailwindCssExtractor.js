@@ -54,14 +54,12 @@ function getUserTailwindData(tailwindToCss) {
                       cssProperties.push({
                         tw: word,
                         css: multi.split(":")[0],
-                        declaratives: css,
                       });
                     });
                   } else {
                     cssProperties.push({
                       tw: word,
                       css: css.split(":")[0],
-                      declaratives: css,
                     });
                   }
                 }
