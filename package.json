@@ -2,7 +2,8 @@
   "name": "check-your-css",
   "displayName": "Check Your CSS",
   "description": "Checking compatibility of CSS",
-  "version": "0.0.1",
+  "publisher": "teamTitans",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.86.0"
   },
@@ -10,8 +11,15 @@
     "Other",
     "Linters"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TeamTitans1/checkyourcss-vscode"
+  },
   "license": "MIT",
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:cyc.setSettingJson",
+    "onCommand:cyc.fixyourcss"
+  ],
   "main": "./extension.js",
   "contributes": {
     "commands": [
