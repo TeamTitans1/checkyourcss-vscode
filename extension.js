@@ -20,10 +20,13 @@ async function activate(context) {
   const cssData = await getCssData();
   const tailwindToCss = await getTailwindToCssData();
   let userCssData;
+  let isSettingJsonCommandRunning = false;
 
   const setSettingJson = vscode.commands.registerCommand(
     "cyc.setSettingJson",
     async () => {
+      isSettingJsonCommandRunning = true;
+
       const userSelections = await setBrowserAndVersion(cssData.data.agents);
       const config = vscode.workspace.getConfiguration();
 
@@ -32,12 +35,17 @@ async function activate(context) {
         userSelections,
         vscode.ConfigurationTarget.Global,
       );
+
+      isSettingJsonCommandRunning = false;
     },
   );
 
-  const checkCompatibilityAndGetInfo = vscode.commands.registerCommand(
-    "cyc.checkyourcss",
-    async () => {
+  const checkCompatibilityAndGetInfo = vscode.workspace.onWillSaveTextDocument(
+    async event => {
+      if (isSettingJsonCommandRunning) {
+        return;
+      }
+
       const editor = vscode.window.activeTextEditor;
       if (!editor) {
         vscode.window.showInformationMessage(
@@ -47,7 +55,7 @@ async function activate(context) {
         return;
       }
 
-      const document = editor.document;
+      const document = event.document;
       const documentText = document.getText();
 
       if (
@@ -235,8 +243,11 @@ async function activate(context) {
     },
   );
 
-  context.subscriptions.push(setSettingJson);
-  context.subscriptions.push(checkCompatibilityAndGetInfo, fixStyledComponents);
+  context.subscriptions.push(
+    setSettingJson,
+    checkCompatibilityAndGetInfo,
+    fixStyledComponents,
+  );
 }
 
 function deactivate() {}
