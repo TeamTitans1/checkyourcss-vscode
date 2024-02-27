@@ -1,50 +1,57 @@
-# check-your-css README
+# Check Your CSS
 
-This is the README for your extension "check-your-css". After writing up a brief description, we recommend including the following sections.
+"Check Your CSS" is a Visual Studio Code extension designed to check the compatibility of your CSS with the browsers and versions you select. It helps web developers identify and resolve CSS compatibility issues across different browsers quickly and efficiently.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Browser and Version Selection**: Allows you to select your preferred browsers and their versions. These settings are saved in `settings.json`.
+- **Real-time Compatibility Checks**: Automatically checks your CSS for compatibility issues with the selected browsers and versions upon file save, highlighting any incompatible properties.
+- **Hover Information**: Provides detailed information, suggested modifications, and MDN documentation links for incompatible CSS properties on hover.
+- **Automatic CSS Correction**: The "Fix Your CSS" command applies necessary browser-specific prefixes to your CSS, ensuring compatibility with your selected browsers.
 
-For example if there is an image subfolder under your extension project workspace:
+## Installation
 
-\!\[feature X\]\(images/feature-x.png\)
+Search for "Check Your CSS" in the Visual Studio Code Marketplace or directly install it using the command:
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+```bash
+ext install check-your-css
+```
 
-## Requirements
+## How to Use
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+1. **Set Browsers and Versions**:
 
-## Extension Settings
+- Open the Command Palette with Cmd+Shift+P or Ctrl+Shift+P.
+- Search for "Check Your CSS: Set Browsers and Versions" and execute.
+- Choose the browsers and their versions you're targeting.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+2. **Compatibility Check**:
 
-For example:
+- After editing your code, save the file with Cmd+S or Ctrl+S.
+- Any CSS properties incompatible with the selected settings will be underlined.
 
-This extension contributes the following settings:
+3. **Hover to Get Information**:
 
-- `myExtension.enable`: Enable/disable this extension.
-- `myExtension.thing`: Set to `blah` to do something.
+- Hovering over any highlighted CSS property will display a popup with compatibility information, suggestions for correction, and a link to MDN for more details.
 
-## Known Issues
+4. **Automatically Correct CSS**:
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- Open the Command Palette again.
+- Search for "Fix Your CSS" and execute.
+- The extension will automatically add necessary prefixes to your CSS.
 
-## Release Notes
+## FAQ
 
-Users appreciate release notes as you update your extension.
+**Q: Does it support all browsers and versions?**
+A: "Check Your CSS" currently supports the latest versions of major browsers. The full list of supported browsers can be found in the extension's settings section.
 
-### 1.0.0
+**Q: How can I fix incompatible CSS properties?**
+A: The "Fix Your CSS" command will automatically apply necessary prefixes for you. For manual corrections, hover over the property to see suggested modifications.
 
-Initial release of ...
+## Contributing
 
-### 1.0.1
+"Check Your CSS" is open to contributions! If you have suggestions for improvements or have found a bug, please visit our [GitHub repository](https://github.com/TeamTitans1/checkyourcss-vscode) to report an issue or submit a pull request.
 
-Fixed issue #.
+## License
 
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
+This extension is distributed under the MIT License. See the LICENSE file for more details.
