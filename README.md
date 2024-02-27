@@ -54,4 +54,4 @@ A: The "Fix Your CSS" command will automatically apply necessary prefixes for yo
 
 ## License
 
-This extension is distributed under the MIT License. See the LICENSE file for more details.
+This extension is distributed under the MIT [License](LICENSE.txt). See the LICENSE file for more details.
