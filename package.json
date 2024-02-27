@@ -20,8 +20,44 @@
       {
         "command": "cyc.fixyourcss",
         "title": "Fix Your CSS"
+      },
+      {
+        "command": "cyc.setSettingJson",
+        "title": "Set Setting.json"
       }
-    ]
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Check Your CSS",
+      "properties": {
+        "checkYourCSS.browsersAndVersions": {
+          "type": "array",
+          "default": [],
+          "description": "Configure browsers and their versions",
+          "items": {
+            "type": "object",
+            "properties": {
+              "browserName": {
+                "type": "string",
+                "description": "browserName"
+              },
+              "browser": {
+                "type": "string",
+                "description": "stat"
+              },
+              "version": {
+                "type": "string",
+                "description": "version"
+              }
+            },
+            "required": [
+              "browser",
+              "version"
+            ]
+          }
+        }
+      }
+    }
   },
   "scripts": {
     "lint": "eslint .",

@@ -2,6 +2,7 @@ const vscode = require("vscode");
 const checkCompatibility = require("./src/cssCompatibilityChecker");
 const getUserTailwindData = require("./src/tailwindCssExtractor");
 const setBrowserAndVersion = require("./src/browsersAndversionsSetter");
+const getSettingJsonData = require("./src/settingJsonData");
 const getStyledComponentsData = require("./src/styledComponentsExtractor");
 const { markLine } = require("./src/result");
 const { getCssData, getTailwindToCssData } = require("./src/data");
@@ -12,10 +13,25 @@ const bcd = require("@mdn/browser-compat-data");
 /**
  * @param {vscode.ExtensionContext} context
  */
+
 async function activate(context) {
   const cssData = await getCssData();
   const tailwindToCss = await getTailwindToCssData();
   let userCssData;
+
+  const setSettingJson = vscode.commands.registerCommand(
+    "cyc.setSettingJson",
+    async () => {
+      const userSelections = await setBrowserAndVersion(cssData.data.agents);
+      const config = vscode.workspace.getConfiguration();
+
+      await config.update(
+        "checkYourCSS.browsersAndVersions",
+        userSelections,
+        vscode.ConfigurationTarget.Global,
+      );
+    },
+  );
 
   const checkCompatibilityAndGetInfo = vscode.commands.registerCommand(
     "cyc.checkyourcss",
@@ -31,7 +47,6 @@ async function activate(context) {
 
       const document = editor.document;
       const documentText = document.getText();
-      const agentData = cssData.data.agents;
 
       if (
         documentText.includes(`from "styled-components`) ||
@@ -42,7 +57,7 @@ async function activate(context) {
         userCssData = getUserTailwindData(tailwindToCss);
       }
 
-      const userSelection = await setBrowserAndVersion(agentData);
+      const userSelection = await getSettingJsonData();
 
       const notSupportedCss = await checkCompatibility(
         userCssData,
@@ -196,14 +211,14 @@ async function activate(context) {
         documentText.includes(`from "styled-components`) ||
         documentText.includes("from 'styled-components'")
       ) {
-        const agentData = cssData.data.agents;
-        const userSelections = await setBrowserAndVersion(agentData);
+        const userSelections = getSettingJsonData();
 
         changeStyledComponentsCss(documentText, userSelections);
       }
     },
   );
 
+  context.subscriptions.push(setSettingJson);
   context.subscriptions.push(checkCompatibilityAndGetInfo, fixStyledComponents);
 }
 
