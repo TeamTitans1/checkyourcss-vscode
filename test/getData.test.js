@@ -1,6 +1,6 @@
 const axios = require("axios");
 const MockAdapter = require("axios-mock-adapter");
-const { getCssData, getTailwindToCssData } = require("../getData");
+const { getCssData } = require("../getData");
 
 let expect;
 
