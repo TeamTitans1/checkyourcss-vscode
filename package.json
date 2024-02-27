@@ -14,16 +14,12 @@
   "contributes": {
     "commands": [
       {
-        "command": "cyc.checkyourcss",
-        "title": "Check Your CSS"
+        "command": "cyc.setSettingJson",
+        "title": "Check Your CSS: Set Browsers and Versions"
       },
       {
         "command": "cyc.fixyourcss",
         "title": "Fix Your CSS"
-      },
-      {
-        "command": "cyc.setSettingJson",
-        "title": "Set Setting.json"
       }
     ],
     "configuration": {
