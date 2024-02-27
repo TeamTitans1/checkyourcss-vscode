@@ -1,12 +1,12 @@
 const vscode = require("vscode");
-const checkCompatibility = require("./compatibilityCheck");
-const getUserTailwindData = require("./getUserTailwindData");
-const setBrowserAndVersion = require("./setBrowserAndVersion");
-const getStyledComponentsData = require("./getUserStyledComponents");
-const { markLine } = require("./lineMarkAndHover");
-const { getCssData, getTailwindToCssData } = require("./getData");
-const extractWordAtPositionIncludingHyphen = require("./getWordIncludingHyphen");
-const changeStyledComponentsCss = require("./fixStyledComponents");
+const checkCompatibility = require("./src/cssCompatibilityChecker");
+const getUserTailwindData = require("./src/tailwindCssExtractor");
+const setBrowserAndVersion = require("./src/browsersAndversionsSetter");
+const getStyledComponentsData = require("./src/styledComponentsExtractor");
+const { markLine } = require("./src/result");
+const { getCssData, getTailwindToCssData } = require("./src/data");
+const extractWordAtPositionIncludingHyphen = require("./src/includingHyphenWordExtractor");
+const changeStyledComponentsCss = require("./src/styledComponentsFixer");
 const bcd = require("@mdn/browser-compat-data");
 
 /**
