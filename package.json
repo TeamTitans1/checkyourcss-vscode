@@ -7,8 +7,10 @@
     "vscode": "^1.86.0"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Linters"
   ],
+  "license": "MIT",
   "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
