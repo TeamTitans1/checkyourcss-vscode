@@ -17,7 +17,10 @@
     "url": "https://github.com/TeamTitans1/checkyourcss-vscode"
   },
   "license": "MIT",
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:cyc.setSettingJson",
+    "onCommand:cyc.fixyourcss"
+  ],
   "main": "./extension.js",
   "contributes": {
     "commands": [
