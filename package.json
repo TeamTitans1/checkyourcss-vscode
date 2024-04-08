@@ -1,9 +1,10 @@
 {
   "name": "check-your-css",
   "displayName": "Check Your CSS",
+  "icon": "image/cyc-logo.png",
   "description": "Checking compatibility of CSS",
   "publisher": "teamTitans",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "engines": {
     "vscode": "^1.86.0"
   },
@@ -71,14 +72,11 @@
     "test-vscode": "vscode-test"
   },
   "devDependencies": {
-    "@babel/parser": "^7.23.9",
-    "@babel/traverse": "^7.23.9",
     "@types/mocha": "^10.0.6",
     "@types/node": "18.x",
     "@types/vscode": "^1.86.0",
     "@vscode/test-cli": "^0.0.4",
     "@vscode/test-electron": "^2.3.9",
-    "autoprefixer": "^10.4.17",
     "axios-mock-adapter": "^1.22.0",
     "chai": "^5.1.0",
     "eslint": "^8.56.0",
@@ -87,13 +85,16 @@
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
     "mocha": "^10.3.0",
-    "postcss": "^8.4.35",
     "prettier": "^3.2.5",
     "sinon": "^17.0.1"
   },
   "dependencies": {
+    "@babel/parser": "^7.24.0",
+    "@babel/traverse": "^7.24.0",
     "@mdn/browser-compat-data": "^5.5.11",
+    "autoprefixer": "^9.8.8",
     "axios": "^1.6.7",
+    "postcss": "^7.0.39",
     "typescript": "^5.3.3"
   }
 }
