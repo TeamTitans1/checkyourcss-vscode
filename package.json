@@ -4,7 +4,7 @@
   "icon": "image/cyc-logo.png",
   "description": "Checking compatibility of CSS",
   "publisher": "teamTitans",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "engines": {
     "vscode": "^1.86.0"
   },
